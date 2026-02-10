@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap"
+          rel="stylesheet">
+    <title>Liet Kynes Resume - Environmental Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h1, h2, p, a {
+            color: #2d2d2d;
+        }
+
+        body {
+            font-family: "Cormorant Garamond", serif;
+            overflow-x: hidden;
+            position: relative;
+            background-color: #EFF0E8;
+        }
+
+        /* Noise texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.2'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1;
+            opacity: 1.0;
+        }
+
+        /* Animated gradient blob */
+        .gradient-blob {
+            position: fixed;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle at center,
+            rgb(165 188 164 / 70%) 0%, rgb(143 168 142 / 50%) 30%, rgba(120, 145, 118, 0.3) 60%, transparent 80%);
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: float 20s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0% {
+                top: -10%;
+                right: 10%;
+                transform: scale(1) translate(0, 0);
+            }
+            20% {
+                top: 25%;
+                right: 55%;
+                transform: scale(1.08) translate(30px, 25px);
+            }
+            40% {
+                top: 50%;
+                right: 8%;
+                transform: scale(0.95) translate(-40px, 20px);
+            }
+            60% {
+                top: 35%;
+                right: 65%;
+                transform: scale(1.05) translate(25px, -30px);
+            }
+            80% {
+                top: 10%;
+                right: 28%;
+                transform: scale(0.98) translate(-25px, 15px);
+            }
+            100% {
+                top: -10%;
+                right: 10%;
+                transform: scale(1) translate(0, 0);
+            }
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* Fade in up animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mission statement */
+        .mission-statement {
+            position: relative;
+            max-width: 500px;
+            margin: 6em auto 0;
+            padding: 40px 50px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px rgba(120, 145, 118, 0.15);
+            animation: fadeInUp 1s ease-out 0.8s both;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            overflow: hidden;
+        }
+
+        @media (hover: hover) {
+            .mission-statement:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 12px 40px rgba(120, 145, 118, 0.22);
+            }
+        }
+
+        /* Add shimmer effect */
+        .mission-statement::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                    90deg,
+                    transparent 0%,
+                    rgba(255, 255, 255, 0.3) 50%,
+                    transparent 100%
+            );
+            animation: shimmer 12s ease-in-out 3s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0%, 90% {
+                left: -100%;
+                opacity: 0;
+            }
+            92% {
+                opacity: 1;
+            }
+            100% {
+                left: 100%;
+                opacity: 0;
+            }
+        }
+
+        .mission-statement p {
+            font-size: 22px;
+            font-style: italic;
+            color: #7d7d7d;
+            line-height: 1.6;
+        }
+
+        .divider-section {
+            padding: 0;
+            margin: 40px 0 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        /* Content container */
+        .content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 60px;
+        }
+
+        /* Hero section */
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero h1 {
+            font-size: 2.7em;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            font-family: "Cormorant Garamond", serif;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.2s forwards;
+        }
+
+        .hero h2 {
+            font-size: 20px;
+            font-weight: 300;
+            margin-bottom: 10px;
+            color: #6d6d6d;
+            letter-spacing: 0.2px;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+
+        /* Professional divider */
+        .divider-section {
+            padding: 0;
+            margin: 40px 0 0;
+        }
+
+        .divider-line {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right,
+            transparent 0%,
+            rgba(170, 191, 214, 0.3) 20%,
+            rgba(170, 191, 214, 0.6) 50%,
+            rgba(170, 191, 214, 0.3) 80%,
+            transparent 100%);
+        }
+
+        /* Section styling */
+        .section {
+            margin: 80px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .section.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section h3 {
+            font-size: 42px;
+            font-weight: 300;
+            margin-bottom: 40px;
+            color: #1a1a1a;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .subsection {
+            margin-bottom: 30px;
+        }
+
+        .subsection h4 {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        .subsection p {
+            font-size: 15px;
+            color: #6d6d6d;
+            line-height: 1.6;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .subsection ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 10px;
+        }
+
+        .subsection ul li {
+            font-size: 15px;
+            color: #6d6d6d;
+            line-height: 1.8;
+            padding-left: 18px;
+            position: relative;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        .subsection ul li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #a9c4b0;
+        }
+
+        /* Skills proficiency bars */
+        .skill-item {
+            margin-bottom: 24px;
+        }
+
+        .skill-name {
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: #1a1a1a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .skill-level {
+            font-size: 13px;
+            color: #6d6d6d;
+            font-weight: 400;
+        }
+
+        .skill-bar {
+            width: 100%;
+            height: 6px;
+            background-color: #e8e8e8;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .skill-fill {
+            height: 100%;
+            background: linear-gradient(to right,
+            rgba(143, 171, 155, 0.8),
+            rgba(136, 154, 145, 1));
+            border-radius: 3px;
+            transition: width 1s ease-out;
+        }
+
+        /* Contact section */
+        .contact {
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .contact h3 {
+            font-size: 48px;
+            font-weight: 300;
+            margin-bottom: 30px;
+            color: #1a1a1a;
+        }
+
+        .contact .email {
+            font-size: 20px;
+            color: #6d6d6d;
+        }
+
+        @media (max-width: 1075px) {
+            .hero h1 {
+                font-size: 2.3em;
+            }
+
+            .hero h2 {
+                font-size: 24px;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .content {
+                padding: 30px;
+            }
+
+            .gradient-blob {
+                width: 400px;
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            .hero h2 {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .hero h1 {
+                font-size: 1.8em;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<div class="gradient-blob"></div>
+
+<div class="content">
+    <section class="hero">
+        <h1>Liet Kynes</h1>
+        <h2>Environmental Engineer, PE | Water Resources & Sustainability</h2>
+
+        <div class="mission-statement">
+            <p>Designing sustainable solutions that balance environmental stewardship with practical engineering
+                excellence</p>
+        </div>
+    </section>
+
+    <div class="two-column">
+        <div class="left-column">
+            <section class="section">
+                <h3>Experience</h3>
+
+                <div class="subsection">
+                    <h4>Senior Environmental Engineer</h4>
+                    <p>AECOM | San Francisco, CA | 2021 - Present</p>
+                    <ul>
+                        <li>Lead environmental impact assessments for $100M+ infrastructure projects, ensuring 100%
+                            regulatory compliance with state and federal standards
+                        </li>
+                        <li>Designed and implemented water treatment system for municipal client, reducing contaminants
+                            by 92% and saving $850K annually in operating costs
+                        </li>
+                        <li>Manage team of 4 junior engineers and coordinate with multidisciplinary stakeholders on
+                            large-scale remediation projects
+                        </li>
+                        <li>Developed innovative stormwater management solutions that decreased urban runoff by 40%
+                            across 15 development sites
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h4>Environmental Engineer</h4>
+                    <p>Geosyntec Consultants | Oakland, CA | 2018 - 2021</p>
+                    <ul>
+                        <li>Conducted Phase I and Phase II environmental site assessments for 35+ commercial and
+                            industrial properties
+                        </li>
+                        <li>Led soil and groundwater remediation project that restored 25-acre contaminated site to EPA
+                            standards within 18 months, 3 months ahead of schedule
+                        </li>
+                        <li>Prepared environmental permits and compliance documentation for air quality, water
+                            discharge, and hazardous waste management
+                        </li>
+                        <li>Performed air quality modeling and emissions testing for industrial clients, achieving 98%
+                            permit approval rate
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="subsection">
+                    <h4>Junior Environmental Engineer</h4>
+                    <p>Kleinfelder | Sacramento, CA | 2017 - 2018</p>
+                    <ul>
+                        <li>Assisted in environmental compliance audits and prepared technical reports for regulatory
+                            agencies
+                        </li>
+                        <li>Conducted field sampling and laboratory analysis for water quality, soil contamination, and
+                            air emissions monitoring
+                        </li>
+                        <li>Supported senior engineers in designing sustainable waste management systems for municipal
+                            clients
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section">
+                <h3>Technical Skills</h3>
+
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>AutoCAD Civil 3D</span>
+                        <span class="skill-level">Advanced</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="width: 90%;"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>ArcGIS / QGIS</span>
+                        <span class="skill-level">Advanced</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="width: 85%;"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>HEC-RAS / SWMM</span>
+                        <span class="skill-level">Proficient</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="width: 80%;"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>MODFLOW / Groundwater Modeling</span>
+                        <span class="skill-level">Proficient</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="width: 75%;"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>Python / R (Data Analysis)</span>
+                        <span class="skill-level">Intermediate</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="width: 70%;"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-name">
+                        <span>AERMOD / Air Quality Modeling</span>
+                        <span class="skill-level">Proficient</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="width: 75%;"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="right-column">
+            <section class="section">
+                <h3>Education</h3>
+
+                <div class="subsection">
+                    <h4>Master of Science in Environmental Engineering</h4>
+                    <p>University of Michigan, Ann Arbor / 2017</p>
+                </div>
+
+                <div class="subsection">
+                    <h4>Bachelor of Science in Civil & Environmental Engineering</h4>
+                    <p>Pennsylvania State University / 2015</p>
+                </div>
+
+                <div class="subsection">
+                    <h4>Professional Engineer (PE) License</h4>
+                    <p>State of California / Licensed 2020</p>
+                </div>
+
+                <div class="subsection">
+                    <h4>LEED Green Associate</h4>
+                    <p>U.S. Green Building Council / 2019</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h3>Achievements</h3>
+
+                <div class="subsection">
+                    <h4>California Water Environment Association Excellence Award</h4>
+                    <p>Recognized for innovative stormwater management design that reduced runoff by 40% / 2023</p>
+                </div>
+
+                <div class="subsection">
+                    <h4>Published Research in Journal of Environmental Engineering</h4>
+                    <p>"Advanced Bioremediation Techniques for Industrial Contaminated Sites" / Vol. 148, Issue 9 /
+                        2022</p>
+                </div>
+
+                <div class="subsection">
+                    <h4>EPA Region 9 Environmental Excellence Award</h4>
+                    <p>Team recognition for groundwater remediation project exceeding cleanup goals / 2021</p>
+                </div>
+
+                <div class="subsection">
+                    <h4>Presenter at American Society of Civil Engineers Conference</h4>
+                    <p>"Sustainable Water Treatment Solutions for Urban Development" / San Francisco / 2023</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h3>Contact</h3>
+
+                <div class="subsection">
+                    <h4>Email</h4>
+                    <p><a href="mailto:liet.kynes@email.com">liet.kynes@email.com</a></p>
+                </div>
+
+                <div class="subsection">
+                    <h4>Phone</h4>
+                    <p>(415) 555-0147</p>
+                </div>
+
+                <div class="subsection">
+                    <h4>LinkedIn</h4>
+                    <p>linkedin.com/in/lietkynes</p>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<div class="divider-section">
+    <div class="divider-line"></div>
+</div>
+
+<script>
+    // Scroll-triggered fade-in animation for sections
+    const observerOptions = {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Observe all sections
+    document.querySelectorAll('.section').forEach(section => {
+        observer.observe(section);
+    });
+</script>
+
+</body>
+</html>
